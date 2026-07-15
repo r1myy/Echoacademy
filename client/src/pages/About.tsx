@@ -300,11 +300,9 @@ export default function About() {
             Soumettre un Document
           </Button>
           <Link href="/">
-            <a>
-              <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
-                Explorer la Bibliothèque
-              </Button>
-            </a>
+            <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
+              Explorer la Bibliothèque
+            </Button>
           </Link>
         </div>
       </section>
