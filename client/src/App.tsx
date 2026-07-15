@@ -15,6 +15,7 @@ import InstitutionDetail from "./pages/InstitutionDetail";
 import ThesisDetail from "./pages/ThesisDetail";
 import Collections from "@/pages/Collections";
 import Blog from "@/pages/Blog";
+import BlogPost from "@/pages/BlogPost";
 import ThesisDetailPage from "@/pages/ThesisDetailPage";
 import Resources from "@/pages/Resources";
 import TermsOfService from "@/pages/TermsOfService";
@@ -36,6 +37,7 @@ function Router() {
       <Route path={"/thesis/:id"} component={ThesisDetail} />
         <Route path="/collections" component={Collections} />
       <Route path="/blog" component={Blog} />
+      <Route path="/blog/:id" component={BlogPost} />
       <Route path="/resources" component={Resources} />
       <Route path="/thesis-detail/:id" component={ThesisDetailPage} />
       <Route path="/trends" component={Trends} />
