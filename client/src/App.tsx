@@ -15,12 +15,13 @@ import InstitutionDetail from "./pages/InstitutionDetail";
 import ThesisDetail from "./pages/ThesisDetail";
 import Collections from "@/pages/Collections";
 import Blog from "@/pages/Blog";
-import BlogPost from "@/pages/BlogPost";
+import BlogArticle from "@/pages/BlogArticle";
 import ThesisDetailPage from "@/pages/ThesisDetailPage";
 import Resources from "@/pages/Resources";
 import TermsOfService from "@/pages/TermsOfService";
 import Privacy from "@/pages/Privacy";
 import Trends from "@/pages/Trends";
+import LinkMonitoringNotification from "@/components/LinkMonitoringNotification";
 
 
 function Router() {
@@ -36,8 +37,8 @@ function Router() {
       <Route path={"/institution/:id"} component={InstitutionDetail} />
       <Route path={"/thesis/:id"} component={ThesisDetail} />
         <Route path="/collections" component={Collections} />
+      <Route path="/blog/:id" component={BlogArticle} />
       <Route path="/blog" component={Blog} />
-      <Route path="/blog/:id" component={BlogPost} />
       <Route path="/resources" component={Resources} />
       <Route path="/thesis-detail/:id" component={ThesisDetailPage} />
       <Route path="/trends" component={Trends} />
@@ -63,6 +64,7 @@ function App() {
         <TooltipProvider>
           <Toaster />
           <Router />
+          <LinkMonitoringNotification />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>
