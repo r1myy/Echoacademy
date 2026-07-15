@@ -2,6 +2,14 @@ import { useState } from "react";
 import { Link } from "wouter";
 import { BookOpen, ArrowRight, Calendar, Building2, Tag, Search, X } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import NewsletterSubscribe from "@/components/NewsletterSubscribe";
 import CommentSection from "@/components/CommentSection";
 
@@ -143,6 +151,20 @@ export default function Blog() {
       {/* Header */}
       <div className="border-b border-border bg-card">
         <div className="container mx-auto px-4 py-12">
+          <Breadcrumb className="mb-6">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/">Accueil</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Echo Blog</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+
           <div className="flex items-center gap-3 mb-4">
             <BookOpen className="w-8 h-8 text-accent" />
             <h1 className="text-4xl font-bold text-foreground">Echo Blog</h1>

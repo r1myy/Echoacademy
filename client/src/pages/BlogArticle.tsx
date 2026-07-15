@@ -1,6 +1,14 @@
 import { useParams, Link } from "wouter";
 import { BookOpen, ArrowLeft, Calendar, Building2, User, Share2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import CommentSection from "@/components/CommentSection";
 import ShareButtons from "@/components/ShareButtons";
 
@@ -113,6 +121,21 @@ export default function BlogArticle() {
     return (
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-12 text-center">
+          <Breadcrumb className="mb-6 justify-center">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/">Accueil</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/blog">Echo Blog</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
           <h1 className="text-3xl font-bold text-foreground mb-4">Article non trouvé</h1>
           <p className="text-muted-foreground mb-6">L'article que vous recherchez n'existe pas.</p>
           <Link href="/blog" className="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-medium">
@@ -129,11 +152,31 @@ export default function BlogArticle() {
       {/* Header */}
       <div className="border-b border-border bg-card">
         <div className="container mx-auto px-4 py-8">
+          <Breadcrumb className="mb-4">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/">Accueil</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/blog">Echo Blog</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage className="line-clamp-1">{article.title}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+
           <Link href="/blog" className="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-medium mb-6 transition-colors">
             <ArrowLeft className="w-4 h-4" />
             Retour au blog
           </Link>
-          
+
           <div className="flex items-center gap-3 mb-4">
             <BookOpen className="w-8 h-8 text-accent" />
             <span className="text-sm font-medium text-accent bg-accent/10 px-3 py-1 rounded-full">
