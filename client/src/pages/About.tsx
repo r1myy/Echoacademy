@@ -1,91 +1,86 @@
+import { BookOpen, Heart, Eye, Lightbulb, Users, Globe, ArrowLeft, Menu, X } from "lucide-react";
+import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, Target, Users, Globe, BookOpen, Zap } from "lucide-react";
-import { Link } from "wouter";
+import { useState } from "react";
 
 /**
- * Design Philosophy: Élégance Organique Africaine
- * - Palette: Bleu océan (#1B4965), Jaune soleil (#F4D35E), Rouge passion (#EE964B), Vert jungle (#2D6A4F), Blanc crème (#FFF8F3)
- * - Typography: Crimson Text (titres), Montserrat (sous-titres), Lato (corps)
- * - Formes organiques, courbes fluides, motifs géométriques haïtiens
+ * Design Philosophy: Université Contemporaine
+ * - Palette: Bleu nuit (#1a2f4a), Vert sauge (#7fb069), Blanc cassé (#f5f3f0)
+ * - Typography: Playfair Display (titres), Inter (corps)
+ * - Layout: Moderne, accessible, équilibré
+ * - Ambiance: Académique, professionnelle, inspirante
  */
 
 export default function About() {
-  const team = [
-    {
-      name: "Dr. Jean-Claude Beauvoir",
-      role: "Fondateur & Directeur",
-      bio: "Historien passionné par la préservation du patrimoine intellectuel haïtien",
-      icon: "👨‍🎓"
-    },
-    {
-      name: "Dr. Marie Dubois",
-      role: "Responsable Scientifique",
-      bio: "Chercheuse en sciences naturelles et coordinatrice des publications",
-      icon: "👩‍🔬"
-    },
-    {
-      name: "Prof. Frantz Voltaire",
-      role: "Curateur Littéraire",
-      bio: "Spécialiste de la littérature haïtienne et des études culturelles",
-      icon: "👨‍💼"
-    },
-    {
-      name: "Dr. Pierre Toussaint",
-      role: "Responsable Technique",
-      bio: "Ingénieur informatique et développeur de solutions numériques",
-      icon: "👨‍💻"
-    }
-  ];
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const values = [
     {
-      icon: Globe,
+      icon: Eye,
       title: "Accessibilité",
-      description: "Rendre le savoir haïtien accessible à tous, sans barrières géographiques ou financières"
+      description: "Rendre la recherche haïtienne accessible à tous, sans barrières financières ou géographiques."
+    },
+    {
+      icon: Lightbulb,
+      title: "Innovation",
+      description: "Promouvoir les nouvelles idées et les approches novatrices dans la recherche académique haïtienne."
     },
     {
       icon: Heart,
-      title: "Préservation",
-      description: "Préserver et valoriser le patrimoine intellectuel et culturel d'Haïti pour les générations futures"
+      title: "Engagement",
+      description: "Soutenir les chercheurs haïtiens et valoriser leurs contributions à la connaissance mondiale."
     },
     {
-      icon: Zap,
-      title: "Innovation",
-      description: "Utiliser la technologie pour démocratiser l'accès à la connaissance et aux recherches scientifiques"
+      icon: Globe,
+      title: "Inclusivité",
+      description: "Créer un espace où toutes les voix académiques haïtiennes sont entendues et respectées."
+    }
+  ];
+
+  const team = [
+    {
+      name: "Dr. Marie-Josée Dufour",
+      role: "Directrice Générale",
+      bio: "Spécialiste en santé publique avec 15 ans d'expérience en recherche académique haïtienne."
     },
     {
-      icon: Users,
-      title: "Collaboration",
-      description: "Créer une communauté de chercheurs, d'académiciens et de passionnés du savoir haïtien"
+      name: "Prof. Jean-Claude Beauvoir",
+      role: "Directeur de la Recherche",
+      bio: "Historien renommé et expert en documentation des archives haïtiennes."
+    },
+    {
+      name: "Dr. Pierre Toussaint",
+      role: "Directeur des Partenariats",
+      bio: "Économiste spécialisé dans le développement durable et les politiques haïtiennes."
+    },
+    {
+      name: "Prof. Frantz Voltaire",
+      role: "Directeur Éditorial",
+      bio: "Littéraire et critique, responsable de la curation des contenus académiques."
     }
   ];
 
   const milestones = [
     {
       year: "2020",
-      title: "La Vision",
-      description: "Naissance de l'idée de créer une plateforme pour préserver et partager le savoir haïtien"
+      title: "Les Origines",
+      description: "Fondation d'Echo Academy par un collectif de chercheurs haïtiens passionnés par la valorisation du savoir local."
     },
     {
       year: "2021",
-      title: "Le Lancement",
-      description: "Lancement officiel d'Echo Academy avec les premiers 100 documents"
-    },
-    {
-      year: "2022",
-      title: "L'Expansion",
-      description: "Croissance à 500+ documents et partenariats avec universités haïtiennes"
+      title: "Expansion Numérique",
+      description: "Lancement de la plateforme numérique permettant l'accès gratuit à des centaines de publications académiques."
     },
     {
       year: "2023",
-      title: "La Reconnaissance",
-      description: "Reconnaissance internationale et prix pour l'innovation en accès ouvert"
+      title: "Transformation",
+      description: "Évolution vers une plateforme complète avec portail avancé, blog, collections thématiques et outils collaboratifs."
     },
     {
       year: "2024",
-      title: "L'Impact",
-      description: "Plus de 50,000 utilisateurs et 1,000+ documents en libre accès"
+      title: "Vision Globale",
+      description: "Reconnaissance comme plateforme de référence avec partenariats internationaux et communauté croissante."
     }
   ];
 
@@ -94,169 +89,154 @@ export default function About() {
       {/* Header */}
       <header className="sticky top-0 z-50 bg-white border-b border-border shadow-sm">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-              <BookOpen className="w-6 h-6 text-white" />
+          <Link href="/" className="flex items-center gap-2 sm:gap-3 hover:opacity-80 transition">
+            <img src="/logo.jpeg" alt="Echo Academy Haiti" className="h-12 w-auto flex-shrink-0" />
+            <div className="hidden sm:block">
+              <h1 className="text-xl sm:text-2xl font-bold text-primary">Echo Academy Haiti</h1>
+              <p className="text-xs text-muted-foreground">Plateforme de Recherche Haïtienne</p>
             </div>
-            <div>
-              <h1 className="text-2xl font-bold text-primary">Echo Academy Haiti</h1>
-              <p className="text-xs subtitle text-muted-foreground">EAH - Savoir Haïtien</p>
+            <div className="sm:hidden">
+              <h1 className="text-lg font-bold text-primary">Echo Academy</h1>
             </div>
           </Link>
-          <div className="hidden md:flex items-center gap-4">
-            <Link href="/" className="hover:text-accent transition">Accueil</Link>
-            <span className="font-semibold text-accent">À Propos</span>
-            <Button variant="ghost" size="sm">Contact</Button>
-            <Button size="sm" className="bg-accent hover:bg-accent/90">Se Connecter</Button>
+          
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center gap-2 lg:gap-4 flex-wrap">
+            <Link href="/" className="text-sm lg:text-base hover:text-accent transition font-medium">Accueil</Link>
+            <Link href="/about" className="text-sm lg:text-base text-accent transition font-medium">À Propos</Link>
+            <Link href="/research-portal" className="text-sm lg:text-base hover:text-accent transition font-medium">Portail Haïti</Link>
+            <Link href="/collections" className="text-sm lg:text-base hover:text-accent transition font-medium">Collections</Link>
+            <Link href="/resources" className="text-sm lg:text-base hover:text-accent transition font-medium">Ressources</Link>
+            <Link href="/biblio-recherche" className="text-sm lg:text-base hover:text-accent transition font-medium">Biblio-Recherche</Link>
+            <Link href="/events" className="text-sm lg:text-base hover:text-accent transition font-medium">Événements</Link>
+            <Link href="/echopods" className="text-sm lg:text-base hover:text-accent transition font-medium">EchoPods</Link>
+            <Link href="/blog" className="text-sm lg:text-base hover:text-accent transition font-medium">Echo Blog</Link>
+            <Button variant="ghost" size="sm" className="text-primary hover:text-accent">Contact</Button>
           </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 hover:bg-muted rounded-md transition"
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t border-border bg-white">
+            <div className="container mx-auto px-4 py-4 space-y-3">
+              <Link href="/" className="block text-sm hover:text-accent transition font-medium py-2">Accueil</Link>
+              <Link href="/about" className="block text-sm text-accent transition font-medium py-2">À Propos</Link>
+              <Link href="/research-portal" className="block text-sm hover:text-accent transition font-medium py-2">Portail Haïti</Link>
+              <Link href="/collections" className="block text-sm hover:text-accent transition font-medium py-2">Collections</Link>
+              <Link href="/resources" className="block text-sm hover:text-accent transition font-medium py-2">Ressources</Link>
+              <Link href="/biblio-recherche" className="block text-sm hover:text-accent transition font-medium py-2">Biblio-Recherche</Link>
+              <Link href="/events" className="block text-sm hover:text-accent transition font-medium py-2">Événements</Link>
+              <Link href="/echopods" className="block text-sm hover:text-accent transition font-medium py-2">EchoPods</Link>
+              <Link href="/blog" className="block text-sm hover:text-accent transition font-medium py-2">Echo Blog</Link>
+              <Button size="sm" className="bg-accent hover:bg-accent/90 w-full text-sm">Contact</Button>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-20 bg-gradient-to-br from-primary/5 to-accent/5">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-5xl md:text-6xl font-bold text-primary mb-6 leading-tight">
-            Notre Histoire
-          </h2>
-          <p className="text-xl subtitle text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Echo Academy Haiti (EAH) est née d'une passion commune : préserver et partager le savoir haïtien avec le monde
-          </p>
-        </div>
-      </section>
-
-      {/* Mission Section */}
-      <section className="container mx-auto px-4 py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h3 className="text-4xl font-bold text-primary mb-6">Notre Mission</h3>
-            <p className="text-lg text-muted-foreground mb-4 leading-relaxed">
-              Echo Academy Haiti (EAH) est une plateforme numérique dédiée à la démocratisation du savoir haïtien. Nous croyons que chaque voix, chaque recherche, chaque mémoire contribue à la richesse intellectuelle de notre nation.
-            </p>
-            <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-              Notre mission est de créer un espace où les chercheurs, les académiciens et les passionnés peuvent accéder librement à des travaux scientifiques et historiques de qualité, contribuant ainsi à l'avancement de la connaissance et au développement d'Haïti.
-            </p>
-            <div className="flex gap-4">
-              <Button className="bg-accent hover:bg-accent/90">
-                Rejoindre la Communauté
-              </Button>
-              <Button variant="outline" className="border-primary text-primary hover:bg-primary/10">
-                En Savoir Plus
-              </Button>
-            </div>
-          </div>
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl transform rotate-3"></div>
-            <div className="relative bg-white p-8 rounded-3xl shadow-lg">
-              <Target className="w-16 h-16 text-accent mb-4" />
-              <h4 className="text-2xl font-bold text-primary mb-4">Nos Objectifs</h4>
-              <ul className="space-y-3 text-muted-foreground">
-                <li className="flex items-start gap-3">
-                  <span className="text-accent font-bold mt-1">✓</span>
-                  <span>Rendre accessible le savoir haïtien à tous</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-accent font-bold mt-1">✓</span>
-                  <span>Préserver le patrimoine intellectuel d'Haïti</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-accent font-bold mt-1">✓</span>
-                  <span>Soutenir la recherche scientifique haïtienne</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-accent font-bold mt-1">✓</span>
-                  <span>Créer une communauté académique dynamique</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Values Section */}
-      <section className="bg-gradient-to-r from-primary/10 to-accent/10 py-20">
+      <section className="relative overflow-hidden bg-gradient-to-b from-background to-white py-20">
         <div className="container mx-auto px-4">
-          <h3 className="text-4xl font-bold text-primary mb-4 text-center">Nos Valeurs</h3>
-          <p className="text-lg subtitle text-muted-foreground mb-12 text-center max-w-2xl mx-auto">
-            Les principes qui guident chacune de nos actions
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-5xl md:text-6xl font-bold text-primary mb-6 leading-tight">
+              À Propos d'Echo Academy
+            </h1>
+            <p className="text-xl text-muted-foreground leading-relaxed">
+              Découvrez notre mission de valoriser et d'amplifier la voix de la recherche académique haïtienne
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Content */}
+      <section className="container mx-auto px-4 py-20">
+        {/* Mission Section */}
+        <div className="max-w-4xl mx-auto mb-20">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-4xl font-bold text-primary mb-6">Notre Mission</h2>
+              <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                Echo Academy est une plateforme numérique dédiée à la valorisation et à la diffusion de la recherche académique haïtienne. Nous croyons que le savoir haïtien est une richesse qui doit être accessible à tous, chercheurs, étudiants, décideurs et citoyens.
+              </p>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                Notre mission est de créer un écosystème académique inclusif où les voix haïtiennes sont amplifiées, les recherches sont valorisées, et les idées circulent librement pour contribuer au développement du pays et à la connaissance mondiale.
+              </p>
+            </div>
+            <div className="relative h-96 rounded-lg overflow-hidden shadow-xl">
+              <img
+                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663441725136/AK8d9c4wnXxLYV3xzmH4Xc/section-research-contemporary-WjrgQWQj9NWB437zs9GPaJ.webp"
+                alt="Recherche académique"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* History Section */}
+        <div className="max-w-4xl mx-auto mb-20 border-t border-border pt-20">
+          <h2 className="text-4xl font-bold text-primary mb-12 text-center">Notre Histoire</h2>
+          <div className="space-y-8">
+            {milestones.map((milestone, index) => (
+              <div key={index} className="border-l-4 border-accent pl-6">
+                <h3 className="text-2xl font-bold text-primary mb-2">{milestone.year} - {milestone.title}</h3>
+                <p className="text-muted-foreground leading-relaxed">{milestone.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Values Section */}
+        <div className="max-w-6xl mx-auto mb-20 border-t border-border pt-20">
+          <h2 className="text-4xl font-bold text-primary mb-12 text-center">Nos Valeurs</h2>
+          <div className="grid md:grid-cols-2 gap-8">
             {values.map((value, index) => {
               const Icon = value.icon;
               return (
-                <Card key={index} className="border-border hover:shadow-lg transition-all duration-300">
+                <Card key={index} className="border border-border hover:shadow-lg transition-all duration-300 rounded-lg">
                   <CardHeader>
-                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-accent/20 to-secondary/20 flex items-center justify-center mb-4">
-                      <Icon className="w-6 h-6 text-accent" />
+                    <div className="flex items-center gap-4 mb-2">
+                      <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center">
+                        <Icon className="w-6 h-6 text-accent" />
+                      </div>
+                      <CardTitle className="text-xl text-primary">{value.title}</CardTitle>
                     </div>
-                    <CardTitle className="text-xl">{value.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm text-muted-foreground">{value.description}</p>
+                    <p className="text-muted-foreground leading-relaxed">{value.description}</p>
                   </CardContent>
                 </Card>
               );
             })}
           </div>
         </div>
-      </section>
 
-      {/* Timeline Section */}
-      <section className="container mx-auto px-4 py-20">
-        <h3 className="text-4xl font-bold text-primary mb-4 text-center">Notre Parcours</h3>
-        <p className="text-lg subtitle text-muted-foreground mb-12 text-center max-w-2xl mx-auto">
-          Les étapes clés de l'évolution d'Echo Academy
-        </p>
-        <div className="relative">
-          {/* Timeline Line */}
-          <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-primary to-accent"></div>
-
-          <div className="space-y-12">
-            {milestones.map((milestone, index) => (
-              <div key={index} className={`flex gap-8 ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"}`}>
-                <div className="flex-1 hidden md:block"></div>
-                <div className="flex-shrink-0 flex justify-center">
-                  <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center text-white font-bold shadow-lg">
-                    {index + 1}
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <Card className="border-border hover:shadow-lg transition-all duration-300">
-                    <CardHeader>
-                      <div className="flex items-center justify-between mb-2">
-                        <CardTitle className="text-2xl text-primary">{milestone.title}</CardTitle>
-                        <span className="label bg-secondary text-primary px-3 py-1 rounded-full font-bold">
-                          {milestone.year}
-                        </span>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">{milestone.description}</p>
-                    </CardContent>
-                  </Card>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <section className="bg-gradient-to-br from-primary/5 to-accent/5 py-20">
-        <div className="container mx-auto px-4">
-          <h3 className="text-4xl font-bold text-primary mb-4 text-center">Notre Équipe</h3>
-          <p className="text-lg subtitle text-muted-foreground mb-12 text-center max-w-2xl mx-auto">
-            Les passionnés qui font vivre Echo Academy
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Team Section */}
+        <div className="max-w-6xl mx-auto border-t border-border pt-20">
+          <h2 className="text-4xl font-bold text-primary mb-12 text-center">Notre Équipe</h2>
+          <div className="grid md:grid-cols-2 gap-8">
             {team.map((member, index) => (
-              <Card key={index} className="border-border hover:shadow-lg transition-all duration-300 text-center">
+              <Card key={index} className="border border-border hover:shadow-lg transition-all duration-300 rounded-lg">
                 <CardHeader>
-                  <div className="text-5xl mb-4 flex justify-center">{member.icon}</div>
-                  <CardTitle className="text-xl text-primary">{member.name}</CardTitle>
-                  <p className="subtitle text-accent mt-2">{member.role}</p>
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center flex-shrink-0">
+                      <Users className="w-8 h-8 text-white" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-lg text-primary">{member.name}</CardTitle>
+                      <p className="text-sm text-accent font-semibold">{member.role}</p>
+                    </div>
+                  </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-muted-foreground">{member.bio}</p>
+                  <p className="text-muted-foreground leading-relaxed">{member.bio}</p>
                 </CardContent>
               </Card>
             ))}
@@ -265,87 +245,86 @@ export default function About() {
       </section>
 
       {/* Impact Section */}
-      <section className="bg-gradient-to-r from-primary to-accent py-20 text-white">
+      <section className="bg-primary text-white py-16 mt-20">
         <div className="container mx-auto px-4">
-          <h3 className="text-4xl font-bold mb-12 text-center">Notre Impact</h3>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+          <h2 className="text-4xl font-bold mb-12 text-center">Notre Impact</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-5xl font-bold mb-2">50K+</div>
-              <p className="subtitle">Utilisateurs Actifs</p>
+              <div className="text-4xl md:text-5xl font-bold mb-2">9+</div>
+              <p className="text-sm md:text-base opacity-90">Thèses & Mémoires</p>
             </div>
             <div>
-              <div className="text-5xl font-bold mb-2">1000+</div>
-              <p className="subtitle">Documents Publiés</p>
+              <div className="text-4xl md:text-5xl font-bold mb-2">5+</div>
+              <p className="text-sm md:text-base opacity-90">Institutions</p>
             </div>
             <div>
-              <div className="text-5xl font-bold mb-2">500K+</div>
-              <p className="subtitle">Téléchargements</p>
+              <div className="text-4xl md:text-5xl font-bold mb-2">8+</div>
+              <p className="text-sm md:text-base opacity-90">Disciplines</p>
             </div>
             <div>
-              <div className="text-5xl font-bold mb-2">40+</div>
-              <p className="subtitle">Pays Représentés</p>
+              <div className="text-4xl md:text-5xl font-bold mb-2">100%</div>
+              <p className="text-sm md:text-base opacity-90">Accès Libre</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="container mx-auto px-4 py-20 text-center">
-        <h3 className="text-4xl font-bold text-primary mb-6">Rejoignez Notre Communauté</h3>
-        <p className="text-xl subtitle text-muted-foreground mb-8 max-w-2xl mx-auto">
-          Contribuez à la préservation et au partage du savoir haïtien. Que vous soyez chercheur, étudiant ou passionné, votre voix compte.
-        </p>
-        <div className="flex gap-4 justify-center flex-wrap">
-          <Button size="lg" className="bg-accent hover:bg-accent/90">
-            Soumettre un Document
-          </Button>
-          <Link href="/">
-            <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
-              Explorer la Bibliothèque
+      <section className="container mx-auto px-4 py-20">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-4xl font-bold text-primary mb-6">Rejoignez Notre Communauté</h2>
+          <p className="text-lg text-muted-foreground mb-8">
+            Que vous soyez chercheur, étudiant ou simplement curieux, explorez la richesse de la recherche académique haïtienne et contribuez à notre mission.
+          </p>
+          <div className="flex gap-4 justify-center flex-wrap">
+            <Link href="/research-portal">
+              <Button size="lg" className="bg-primary hover:bg-primary/90 text-white rounded-md px-8 py-6 font-medium">
+                Explorer les Recherches
+              </Button>
+            </Link>
+            <Button size="lg" variant="outline" className="border-2 border-primary text-primary hover:bg-primary/5 rounded-md px-8 py-6 font-medium">
+              Nous Contacter
             </Button>
-          </Link>
+          </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-border">
-        <div className="container mx-auto px-4 py-12">
+      <footer className="bg-white border-t border-border py-12">
+        <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div>
-              <h4 className="font-bold text-primary mb-4">À Propos</h4>
+              <Link href="/" className="flex items-center gap-2 mb-4 hover:opacity-80 transition">
+                <img src="/logo.jpeg" alt="Echo Academy Haiti" className="h-10 w-auto" />
+              </Link>
+              <p className="text-sm text-muted-foreground">La plateforme de référence pour la recherche haïtienne. Accès libre à 60+ thèses et mémoires académiques.</p>
+            </div>
+            <div>
+              <h4 className="font-semibold text-primary mb-4">Ressources</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-primary transition">Notre Mission</a></li>
-                <li><a href="#" className="hover:text-primary transition">L'Équipe</a></li>
-                <li><a href="#" className="hover:text-primary transition">Partenaires</a></li>
+                <li><Link href="/research-portal" className="hover:text-accent transition">Portail Haïti</Link></li>
+                <li><Link href="/collections" className="hover:text-accent transition">Collections</Link></li>
+                <li><Link href="/blog" className="hover:text-accent transition">Blog</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold text-primary mb-4">Ressources</h4>
+              <h4 className="font-semibold text-primary mb-4">À Propos</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-primary transition">Guide d'Utilisation</a></li>
-                <li><a href="#" className="hover:text-primary transition">FAQ</a></li>
-                <li><a href="#" className="hover:text-primary transition">Support</a></li>
+                <li><Link href="/about" className="hover:text-accent transition">À Propos</Link></li>
+                <li><Link href="/events" className="hover:text-accent transition">Événements</Link></li>
+                <li><Link href="/contact" className="hover:text-accent transition">Contact</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold text-primary mb-4">Légal</h4>
+              <h4 className="font-semibold text-primary mb-4">Légal</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-primary transition">Conditions</a></li>
-                <li><a href="#" className="hover:text-primary transition">Confidentialité</a></li>
-                <li><a href="#" className="hover:text-primary transition">Cookies</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold text-primary mb-4">Nous Suivre</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-primary transition">Facebook</a></li>
-                <li><a href="#" className="hover:text-primary transition">Twitter</a></li>
-                <li><a href="#" className="hover:text-primary transition">LinkedIn</a></li>
+                <li><a href="#" className="hover:text-accent transition">Conditions d'utilisation</a></li>
+                <li><a href="#" className="hover:text-accent transition">Politique de confidentialité</a></li>
               </ul>
             </div>
           </div>
           <div className="border-t border-border pt-8 text-center text-sm text-muted-foreground">
-            <p>&copy; 2024 Echo Academy Haiti (EAH). Tous droits réservés.</p>
+            <p>&copy; 2024 Echo Academy. Tous droits réservés.</p>
           </div>
         </div>
       </footer>

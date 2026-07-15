@@ -1,0 +1,10 @@
+- [ ] Analyser la structure actuelle de la page d’accueil et identifier les éléments à refondre pour un rendu plus académique.
+- [ ] Définir une nouvelle direction visuelle institutionnelle pour la page d’accueil : palette, hiérarchie typographique, iconographie et composition.
+- [ ] Préparer ou sélectionner des visuels à forte crédibilité académique pour le hero et les sections clés.
+- [ ] Reconcevoir le hero de la page d’accueil avec une présentation plus éditoriale et universitaire.
+- [ ] Repenser les cartes et sections d’accès rapide avec une esthétique plus sobre, premium et lisible.
+- [ ] Ajouter des marqueurs visuels académiques pertinents sans surcharger l’interface.
+- [ ] Tester la cohérence responsive de la nouvelle page d’accueil et valider le rendu final.
+- [ ] Définir trois variantes visuelles précises pour la page d’accueil : Bibliothèque institutionnelle, Université contemporaine et Portail scientifique premium.
+- [ ] Comparer les trois variantes selon leur ton, leur composition, leur palette, leur typographie et leur pertinence pour Echo Academy.
+- [ ] Recommander une direction prioritaire pour la prochaine refonte de la page d’accueil.

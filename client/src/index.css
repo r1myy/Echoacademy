@@ -43,76 +43,76 @@
 }
 
 :root {
-  /* Palette Élégance Organique Africaine */
-  --primary: #1B4965; /* Bleu océan */
-  --primary-foreground: #FFF8F3; /* Blanc crème */
-  --sidebar-primary: #EE964B; /* Rouge passion */
-  --sidebar-primary-foreground: #FFF8F3;
-  --chart-1: #F4D35E; /* Jaune soleil */
-  --chart-2: #EE964B; /* Rouge passion */
-  --chart-3: #2D6A4F; /* Vert jungle */
-  --chart-4: #1B4965; /* Bleu océan */
-  --chart-5: #0F2D3A; /* Bleu très foncé */
-  --radius: 1rem;
-  --background: #FFF8F3; /* Blanc crème */
-  --foreground: #1B4965; /* Bleu océan */
+  /* Université Contemporaine - Palette Moderne Académique */
+  --primary: #1a2f4a; /* Bleu nuit profond */
+  --primary-foreground: #FFFFFF;
+  --sidebar-primary: #1a2f4a; /* Bleu nuit */
+  --sidebar-primary-foreground: #FFFFFF;
+  --chart-1: #1a2f4a; /* Bleu nuit */
+  --chart-2: #7fb069; /* Vert sauge */
+  --chart-3: #d4c5b0; /* Sable clair */
+  --chart-4: #8b9dc3; /* Bleu gris */
+  --chart-5: #f5f3f0; /* Blanc cassé */
+  --radius: 0.5rem;
+  --background: #f5f3f0; /* Blanc cassé */
+  --foreground: #1a2f4a; /* Bleu nuit */
   --card: #FFFFFF;
-  --card-foreground: #1B4965;
+  --card-foreground: #1a2f4a;
   --popover: #FFFFFF;
-  --popover-foreground: #1B4965;
-  --secondary: #F4D35E; /* Jaune soleil */
-  --secondary-foreground: #1B4965;
-  --muted: #E8DCC8;
-  --muted-foreground: #6B5B4F;
-  --accent: #EE964B; /* Rouge passion */
+  --popover-foreground: #1a2f4a;
+  --secondary: #7fb069; /* Vert sauge */
+  --secondary-foreground: #FFFFFF;
+  --muted: #e8e6e1; /* Gris clair */
+  --muted-foreground: #6b7280; /* Gris moyen */
+  --accent: #7fb069; /* Vert sauge */
   --accent-foreground: #FFFFFF;
-  --destructive: #DC2626;
+  --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
-  --border: #E8DCC8;
-  --input: #FFFFFF;
-  --ring: #EE964B;
-  --sidebar: #1B4965;
-  --sidebar-foreground: #FFF8F3;
-  --sidebar-accent: #F4D35E;
-  --sidebar-accent-foreground: #1B4965;
-  --sidebar-border: #2D6A4F;
-  --sidebar-ring: #EE964B;
+  --border: #e8e6e1;
+  --input: #f5f3f0;
+  --ring: #7fb069;
+  --sidebar: #1a2f4a;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-accent: #7fb069;
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: #e8e6e1;
+  --sidebar-ring: #7fb069;
 }
 
 .dark {
-  /* Mode sombre - Élégance Organique Africaine */
-  --primary: #0F2D3A; /* Bleu très foncé */
-  --primary-foreground: #F4D35E; /* Jaune soleil */
-  --sidebar-primary: #EE964B; /* Rouge passion */
-  --sidebar-primary-foreground: #FFF8F3;
-  --background: #0F2D3A; /* Bleu très foncé */
-  --foreground: #FFF8F3; /* Blanc crème */
-  --card: #1B4965; /* Bleu océan */
-  --card-foreground: #FFF8F3;
-  --popover: #1B4965;
-  --popover-foreground: #FFF8F3;
-  --secondary: #F4D35E; /* Jaune soleil */
-  --secondary-foreground: #1B4965;
-  --muted: #2D6A4F; /* Vert jungle */
-  --muted-foreground: #E8DCC8;
-  --accent: #EE964B; /* Rouge passion */
-  --accent-foreground: #FFFFFF;
+  /* Université Contemporaine - Mode Sombre */
+  --primary: #1a2f4a; /* Bleu nuit */
+  --primary-foreground: #f5f3f0; /* Blanc cassé */
+  --sidebar-primary: #1a2f4a;
+  --sidebar-primary-foreground: #f5f3f0;
+  --background: #1a2f4a; /* Bleu nuit */
+  --foreground: #f5f3f0; /* Blanc cassé */
+  --card: #2a3f54; /* Bleu nuit plus clair */
+  --card-foreground: #f5f3f0;
+  --popover: #2a3f54;
+  --popover-foreground: #f5f3f0;
+  --secondary: #7fb069; /* Vert sauge */
+  --secondary-foreground: #1a2f4a;
+  --muted: #3a4f64; /* Bleu gris */
+  --muted-foreground: #d4c5b0;
+  --accent: #8fc97f; /* Vert sauge clair */
+  --accent-foreground: #1a2f4a;
   --destructive: #FF6B6B;
   --destructive-foreground: #FFFFFF;
-  --border: #2D6A4F;
-  --input: #1B4965;
-  --ring: #F4D35E;
-  --chart-1: #F4D35E;
-  --chart-2: #EE964B;
-  --chart-3: #2D6A4F;
-  --chart-4: #1B4965;
-  --chart-5: #0F2D3A;
-  --sidebar: #0F2D3A;
-  --sidebar-foreground: #FFF8F3;
-  --sidebar-accent: #F4D35E;
-  --sidebar-accent-foreground: #1B4965;
-  --sidebar-border: #2D6A4F;
-  --sidebar-ring: #EE964B;
+  --border: #3a4f64;
+  --input: #2a3f54;
+  --ring: #8fc97f;
+  --chart-1: #8fc97f;
+  --chart-2: #7fb069;
+  --chart-3: #d4c5b0;
+  --chart-4: #2a3f54;
+  --chart-5: #1a2f4a;
+  --sidebar: #1a2f4a;
+  --sidebar-foreground: #f5f3f0;
+  --sidebar-accent: #8fc97f;
+  --sidebar-accent-foreground: #1a2f4a;
+  --sidebar-border: #3a4f64;
+  --sidebar-ring: #8fc97f;
 }
 
 @layer base {
@@ -121,20 +121,25 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Lato', sans-serif;
+    font-family: 'Geist', sans-serif;
+    letter-spacing: -0.01em;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Crimson Text', serif;
+    font-family: 'Playfair Display', serif;
     font-weight: 700;
+    letter-spacing: -0.02em;
   }
   .subtitle {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
+    font-family: 'Geist', sans-serif;
+    font-weight: 500;
+    letter-spacing: -0.005em;
   }
   .label {
-    font-family: 'Lato', sans-serif;
-    font-weight: 500;
+    font-family: 'Geist', sans-serif;
+    font-weight: 600;
     font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
@@ -189,5 +194,143 @@
       padding-right: 2rem;
       max-width: 1280px; /* Standard content width */
     }
+  }
+}
+
+/* Animations Sophistiquées */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* Classe d'animation réutilisable */
+@layer utilities {
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  .animate-slide-in-left {
+    animation: slideInLeft 0.6s ease-out;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.6s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.5s ease-out;
+  }
+}
+
+@layer components {
+  /* Micro-interactions pour les cartes */
+  .card-hover {
+    @apply transition-all duration-300 ease-out hover:shadow-xl hover:-translate-y-1;
+  }
+
+  /* Transitions fluides pour les boutons */
+  button, [role="button"] {
+    @apply transition-all duration-200 ease-out;
+  }
+
+  button:hover:not(:disabled), [role="button"]:hover:not([aria-disabled="true"]) {
+    @apply transform -translate-y-0.5;
+  }
+
+  button:active:not(:disabled), [role="button"]:active:not([aria-disabled="true"]) {
+    @apply transform translate-y-0;
+  }
+
+  /* Effet de focus sophistiqué */
+  a:focus-visible, button:focus-visible, input:focus-visible {
+    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-background;
+  }
+
+  /* Animations d'entrée pour les éléments */
+  h1, h2, h3 {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  .card {
+    @apply transition-all duration-300 ease-out hover:shadow-xl hover:-translate-y-1;
+  }
+
+  /* Effet de survol pour les images */
+  img {
+    @apply transition-all duration-300;
+  }
+
+  /* Smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Animations pour les formulaires */
+  input, textarea, select {
+    @apply transition-colors duration-200;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    @apply ring-2 ring-accent ring-offset-1;
+  }
+
+  /* Effet de chargement */
+  .loading {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite;
   }
 }

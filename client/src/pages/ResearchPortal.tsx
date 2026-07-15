@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BookOpen, MapPin, Microscope, Newspaper, FileText, Users, BarChart3, Search, Calendar, ExternalLink, Facebook, Twitter, Linkedin, Mail } from "lucide-react";
 import { useState } from "react";
 import { Link } from "wouter";
+import { TagsDisplay } from "@/components/TagsDisplay";
 
 /**
  * Design Philosophy: Élégance Organique Africaine
@@ -19,10 +20,37 @@ export default function ResearchPortal() {
   const [selectedDiscipline, setSelectedDiscipline] = useState<string | null>(null);
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [selectedType, setSelectedType] = useState<string | null>(null);
+  const [selectedInstitution, setSelectedInstitution] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState<string>("relevance");
-  const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
+  const [selectedKeywords, setSelectedKeywords] = useState<Set<string>>(new Set());
   const [keywordInput, setKeywordInput] = useState<string>("");
   const [yearRange, setYearRange] = useState<{ start: number | null; end: number | null }>({ start: null, end: null });
+
+  // Handle tag selection
+  const handleTagClick = (tag: string) => {
+    const newTags = new Set(selectedKeywords);
+    if (newTags.has(tag)) {
+      newTags.delete(tag);
+    } else {
+      newTags.add(tag);
+    }
+    setSelectedKeywords(newTags);
+  };
+
+  const handleRemoveTag = (tag: string) => {
+    const newTags = new Set(selectedKeywords);
+    newTags.delete(tag);
+    setSelectedKeywords(newTags);
+  };
+
+  const handleAddKeyword = () => {
+    if (keywordInput.trim()) {
+      const newTags = new Set(selectedKeywords);
+      newTags.add(keywordInput.trim());
+      setSelectedKeywords(newTags);
+      setKeywordInput("");
+    }
+  };
 
   // Social media share functions
   const shareOnFacebook = (title: string, url: string) => {
@@ -178,35 +206,35 @@ export default function ResearchPortal() {
     {
       name: "Haiti Nexus Journals",
       type: "Libre accès",
-      disciplines: ["Agriculture", "Économie", "Ingénierie"],
+      disciplines: ["Agriculture", "Économie", "Ingénierie", "Sciences humaines et sociales"],
       description: "Plateforme hébergeant 5 revues à comité de lecture",
       url: "https://haitinexus.org"
     },
     {
       name: "Le Scientifique",
       type: "Libre accès",
-      disciplines: ["Sciences sociales", "Sciences naturelles", "Agriculture"],
+      disciplines: ["Sciences sociales", "Sciences naturelles", "Agriculture", "Sciences humaines et sociales"],
       description: "Créée en 2017, héberge une dizaine de revues haïtiennes",
       url: "https://lescientifique.ht"
     },
     {
       name: "CHARESSO — Revues",
       type: "Libre accès",
-      disciplines: ["Sociologie", "Droit", "Sciences politiques"],
+      disciplines: ["Sociologie", "Droit", "Sciences politiques", "Sciences humaines et sociales"],
       description: "Publie 4 revues : Temporalités et Sociétés, Enjeux sociétaux",
       url: "https://charesso.ht"
     },
     {
       name: "Haïti Perspectives",
       type: "Libre accès",
-      disciplines: ["Développement", "Éducation", "Gouvernance"],
+      disciplines: ["Développement", "Éducation", "Gouvernance", "Sciences humaines et sociales"],
       description: "Revue du GRAHN, fondée après le séisme de 2010",
       url: "https://grahn.ht"
     },
     {
       name: "Journal of Haitian Studies",
       type: "Accès partiel",
-      disciplines: ["Arts", "Humanités", "Sciences sociales"],
+      disciplines: ["Arts", "Humanités", "Sciences sociales", "Sciences humaines et sociales"],
       description: "Seule revue académique entièrement dédiée à Haïti",
       url: "https://muse.jhu.edu/journal/613"
     },
@@ -261,6 +289,97 @@ export default function ResearchPortal() {
       description: "Dépôt de thèses françaises incluant travaux sur Haïti",
       categories: "Thèses, mémoires, recherches",
       url: "https://tel.archives-ouvertes.fr"
+    },
+    {
+      name: "Google Scholar",
+      icon: "🔍",
+      description: "Moteur de recherche académique indexant millions d'articles et thèses en libre accès",
+      categories: "Multidisciplinaire, articles scientifiques, thèses",
+      url: "https://scholar.google.com"
+    },
+    {
+      name: "BASE (Bielefeld Academic Search Engine)",
+      icon: "🔎",
+      description: "Moteur de recherche multidisciplinaire indexant plus de 350 millions de documents",
+      categories: "Multidisciplinaire, libre accès, documents académiques",
+      url: "https://www.base-search.net"
+    },
+    {
+      name: "RefSeek",
+      icon: "📑",
+      description: "Moteur de recherche académique spécialisé dans les articles scientifiques et thèses",
+      categories: "Articles scientifiques, thèses, recherche",
+      url: "https://refseek.com"
+    },
+    {
+      name: "Semantic Scholar",
+      icon: "🧠",
+      description: "Plateforme IA pour explorer les articles scientifiques et leurs citations",
+      categories: "Articles scientifiques, citations, analyse sémantique",
+      url: "https://www.semanticscholar.org"
+    },
+    {
+      name: "DOAJ (Directory of Open Access Journals)",
+      icon: "📚",
+      description: "Répertoire de plus de 17 000 revues scientifiques en libre accès",
+      categories: "Revues scientifiques, libre accès, multidisciplinaire",
+      url: "https://doaj.org"
+    },
+    {
+      name: "arXiv",
+      icon: "📄",
+      description: "Archive de prépublications en physique, mathématiques, informatique et autres disciplines",
+      categories: "Prépublications, sciences, mathématiques, informatique",
+      url: "https://arxiv.org"
+    },
+    {
+      name: "HAL (Archives Ouvertes)",
+      icon: "🏛️",
+      description: "Plateforme française d'archives ouvertes hébergeant publications et thèses",
+      categories: "Publications scientifiques, thèses, archives ouvertes",
+      url: "https://hal.archives-ouvertes.fr"
+    },
+    {
+      name: "PubMed Central",
+      icon: "🏥",
+      description: "Archive gratuite des articles biomédicaux et de sciences de la vie",
+      categories: "Biomédecine, sciences de la vie, santé",
+      url: "https://www.ncbi.nlm.nih.gov/pmc"
+    },
+    {
+      name: "CORE",
+      icon: "⚙️",
+      description: "Agrégateur de recherche indexant plus de 200 millions de documents en libre accès",
+      categories: "Multidisciplinaire, libre accès, documents académiques",
+      url: "https://core.ac.uk"
+    },
+    {
+      name: "OAPEN Library",
+      icon: "📖",
+      description: "Bibliothèque numérique de livres académiques en libre accès",
+      categories: "Livres académiques, libre accès, sciences humaines",
+      url: "https://library.oapen.org"
+    },
+    {
+      name: "Directory of Open Access Books",
+      icon: "📚",
+      description: "Répertoire international de livres académiques en libre accès",
+      categories: "Livres académiques, libre accès, multidisciplinaire",
+      url: "https://www.doabooks.org"
+    },
+    {
+      name: "Wikisource - La bibliothèque libre",
+      icon: "📖",
+      description: "Bibliothèque numérique collaborative contenant textes libres et domaine public",
+      categories: "Textes libres, domaine public, littérature, histoire",
+      url: "https://wikisource.org"
+    },
+    {
+      name: "Academia.edu",
+      icon: "👥",
+      description: "Réseau social académique pour partager et découvrir articles de recherche",
+      categories: "Réseau académique, articles scientifiques, collaboration",
+      url: "https://www.academia.edu"
     }
   ];
 
@@ -479,99 +598,723 @@ export default function ResearchPortal() {
   const thesesAndDissertations = [
     {
       id: 1,
-      title: "Analyse des politiques de santé publique en Haïti : Impact sur la réduction de la mortalité maternelle",
-      author: "Dr. Marie-Josée Dufour",
-      year: 2023,
-      institution: "Université Quisqueya",
+      title: "Economie Informelle en Haïti, Marché du Travail et Pauvreté: Analyses Quantitatives",
+      author: "Roseman ASPILLAIRE",
+      year: 2017,
+      institution: "Université Paris-Est Créteil",
       type: "Thèse de Doctorat",
-      discipline: "Santé Publique",
-      abstract: "Cette thèse examine les politiques de santé publique mises en place en Haïti et leur impact sur la réduction de la mortalité maternelle au cours des deux dernières décennies.",
-      url: "https://example.com/thesis/marie-josee-dufour-2023",
-      keywords: ["Santé publique", "Mortalité maternelle", "Politiques de santé", "Haïti"]
+      discipline: "Économie",
+      abstract: "Cette thèse examine les aspects de l'économie informelle en Haïti, le marché du travail et la pauvreté à travers une analyse quantitative approfondie.",
+      url: "https://theses.fr/2017PESC0122/abes",
+      keywords: ["Économie informelle", "Marché du travail", "Pauvreté", "Haïti", "Analyse quantitative", "Développement économique", "Emploi"]
     },
     {
       id: 2,
-      title: "Biodiversité endémique de la Chaîne de la Selle : Conservation et restauration écologique",
-      author: "Pierre Dufour",
-      year: 2022,
-      institution: "Université d'État d'Haïti",
+      title: "Caractérisation du patrimoine génétique des caféiers et de l'agrobiodiversité des systèmes agroforestiers caféicoles haïtiens",
+      author: "Claude Patrick Millet",
+      year: 2024,
+      institution: "Université Quisqueya",
       type: "Thèse de Doctorat",
-      discipline: "Écologie",
-      abstract: "Étude complète de la biodiversité endémique de la Chaîne de la Selle et des stratégies de conservation et de restauration écologique.",
-      url: "https://example.com/thesis/pierre-dufour-2022",
-      keywords: ["Biodiversité", "Écologie", "Conservation", "Chaîne de la Selle"]
+      discipline: "Agriculture",
+      abstract: "Étude complète de la caractérisation génétique des caféiers haïtiens et de l'agrobiodiversité des systèmes agroforestiers.",
+      url: "https://uniq.edu.ht/publication-laboratoire-edse/",
+      keywords: ["Caféiers", "Agrobiodiversité", "Génétique", "Agriculture haïtienne", "Ressources génétiques", "Agroforesterie", "Biodiversité"]
     },
     {
       id: 3,
-      title: "Économie haïtienne et stratégies de développement durable : Une analyse comparative",
-      author: "Frantz Voltaire",
-      year: 2023,
+      title: "Conditions d'adoption d'innovations dans l'agriculture haïtienne : cas des systèmes agroforestiers structurés par les filières cacao et café",
+      author: "Jean Fritzner Amazan",
+      year: 2024,
       institution: "Université Quisqueya",
       type: "Thèse de Doctorat",
-      discipline: "Économie",
-      abstract: "Analyse comparative des stratégies de développement durable en Haïti et dans d'autres pays des Caraïbes.",
-      url: "https://example.com/thesis/frantz-voltaire-2023",
-      keywords: ["Économie", "Développement durable", "Haïti", "Caraïbes"]
+      discipline: "Agriculture",
+      abstract: "Analyse des conditions d'adoption des innovations agricoles en Haïti, avec focus sur les systèmes agroforestiers de cacao et café.",
+      url: "https://uniq.edu.ht/publication-laboratoire-edse/",
+      keywords: ["Innovations agricoles", "Agroforesterie", "Cacao", "Café", "Adoption technologique", "Systèmes agricoles", "Filières agricoles"]
     },
     {
       id: 4,
-      title: "Littérature haïtienne contemporaine : Voix et identités culturelles",
-      author: "Edwidge Danticat",
-      year: 2021,
-      institution: "Université de Montréal",
+      title: "La course aux aires marines protégées dans la Caraïbe insulaire : Cap sur les enjeux de gestion et de gouvernance en Haïti, à Cuba et en Guadeloupe",
+      author: "Alexandra Vanessa D. Pierre",
+      year: 2024,
+      institution: "Université Quisqueya",
       type: "Thèse de Doctorat",
-      discipline: "Littérature",
-      abstract: "Étude des voix et des identités culturelles dans la littérature haïtienne contemporaine.",
-      url: "https://example.com/thesis/edwidge-danticat-2021",
-      keywords: ["Littérature haïtienne", "Identité culturelle", "Voix", "Diaspora"]
+      discipline: "Géographie",
+      abstract: "Étude comparative des aires marines protégées dans la Caraïbe, avec focus sur les enjeux de gestion et de gouvernance en Haïti.",
+      url: "https://uniq.edu.ht/these-alexandra-d-vanessa-pierre/",
+      keywords: ["Aires marines protégées", "Géographie", "Gouvernance", "Caraïbe", "Gestion côtière", "Conservation marine", "Environnement marin"]
     },
     {
       id: 5,
-      title: "Efficacité des interventions de santé mentale en contexte haïtien",
-      author: "Dr. Jean-Claude Toussaint",
-      year: 2022,
-      institution: "GHESKIO",
+      title: "Responsabilité familiale et Échec scolaire en Haïti : Cas de la commune de Montrouis de 2016 à 2021",
+      author: "Claude Milius, Emilio Pierre",
+      year: 2021,
+      institution: "Haiti Nexus Journals",
       type: "Mémoire de Maîtrise",
-      discipline: "Santé Mentale",
-      abstract: "Évaluation de l'efficacité des interventions de santé mentale dans le contexte spécifique d'Haïti.",
-      url: "https://example.com/thesis/jean-claude-toussaint-2022",
-      keywords: ["Santé mentale", "Interventions", "Haïti", "Efficacité"]
+      discipline: "Éducation",
+      abstract: "Étude des facteurs de responsabilité familiale influençant l'échec scolaire en Haïti, cas d'étude de Montrouis.",
+      url: "https://haitinexusjournals.online/index.php/theses-HSS",
+      keywords: ["Responsabilité familiale", "Échec scolaire", "Éducation", "Haïti", "Famille", "Rendement scolaire", "Sociologie de l'éducation"]
     },
     {
       id: 6,
-      title: "Géologie et sismicité de la région de Port-au-Prince : Risques et prévention",
-      author: "Jean-Pierre Beaumont",
-      year: 2023,
-      institution: "Université d'État d'Haïti",
+      title: "Approche par compétences et rendement scolaire en Haïti : impact de la pratique enseignante. Cas de la classe du secondaire IV au Lycée du Bicentenaire de Saint-Marc (2018 - 2021)",
+      author: "Auteur(e) non spécifié",
+      year: 2021,
+      institution: "Haiti Nexus Journals",
       type: "Mémoire de Maîtrise",
-      discipline: "Géologie",
-      abstract: "Étude de la géologie et de la sismicité de la région de Port-au-Prince avec focus sur les risques et les stratégies de prévention.",
-      url: "https://example.com/thesis/jean-pierre-beaumont-2023",
-      keywords: ["Géologie", "Sismicité", "Risques", "Port-au-Prince"]
+      discipline: "Éducation",
+      abstract: "Analyse de l'impact de l'approche par compétences sur le rendement scolaire en Haïti.",
+      url: "https://haitinexusjournals.online/index.php/theses-HSS",
+      keywords: ["Compétences", "Rendement scolaire", "Pratique enseignante", "Haïti", "Pédagogie", "Formation des enseignants", "Didactique"]
     },
     {
       id: 7,
-      title: "Qualité de l'eau potable et santé publique en Haïti",
-      author: "Pape Gueye",
-      year: 2022,
-      institution: "Université Quisqueya",
+      title: "Quelques facteurs influençant le rendement des adolescents en milieu scolaire : Cas du 3ème cycle fondamental au C.F.C 2016-2015",
+      author: "Auteur(e) non spécifié",
+      year: 2016,
+      institution: "Haiti Nexus Journals",
       type: "Mémoire de Maîtrise",
-      discipline: "Chimie Analytique",
-      abstract: "Analyse de la qualité de l'eau potable en Haïti et son impact sur la santé publique.",
-      url: "https://example.com/thesis/pape-gueye-2022",
-      keywords: ["Eau potable", "Qualité", "Santé publique", "Chimie"]
+      discipline: "Éducation",
+      abstract: "Étude des facteurs influençant le rendement des adolescents dans le cycle fondamental en Haïti.",
+      url: "https://haitinexusjournals.online/index.php/theses-HSS",
+      keywords: ["Rendement scolaire", "Adolescents", "Facteurs", "Éducation", "Psychologie de l'éducation", "Développement adolescent", "Réussite scolaire"]
     },
     {
       id: 8,
-      title: "Histoire de l'éducation en Haïti : Évolution et perspectives",
-      author: "Laënnec Hurbon",
-      year: 2021,
-      institution: "GRAHN-Monde",
+      title: "Gestion des déchets et protection de l'environnement en Haïti",
+      author: "M. Francois",
+      year: 2024,
+      institution: "Université française",
+      type: "Thèse de Doctorat",
+      discipline: "Environnement",
+      abstract: "Étude de la gestion des déchets et de la protection de l'environnement en Haïti.",
+      url: "https://theses.fr/2024ANTI0991",
+      keywords: ["Gestion des déchets", "Environnement", "Protection", "Haïti", "Développement durable", "Pollution", "Écologie"]
+    },
+    {
+      id: 9,
+      title: "Dynamics of cholera epidemics in Haiti and Africa",
+      author: "S. Moore",
+      year: 2016,
+      institution: "Université française",
+      type: "Thèse de Doctorat",
+      discipline: "Santé Publique",
+      abstract: "Étude des dynamiques des épidémies de choléra en Haïti et en Afrique.",
+      url: "https://theses.fr/2016AIXM5505",
+      keywords: ["Choléra", "Épidémiologie", "Santé publique", "Haïti", "Maladies infectieuses", "Épidémie", "Santé communautaire"]
+    },
+    {
+      id: 10,
+      title: "Appréhender le risque sismique en Haïti",
+      author: "Auteur(e) non spécifié",
+      year: 2023,
+      institution: "Université française",
+      type: "Thèse de Doctorat",
+      discipline: "Géologie",
+      abstract: "Étude des risques sismiques en Haïti à travers une approche de sismologie participative.",
+      url: "https://theses.fr/s351056",
+      keywords: ["Risque sismique", "Géologie", "Sismologie", "Haïti", "Prévention des catastrophes", "Tectonique", "Aléas naturels"]
+    },
+    {
+      id: 11,
+      title: "Counter-Narratives: Haitians in Economic Transition",
+      author: "Patricia Barthaud",
+      year: 2020,
+      institution: "University of San Francisco",
+      type: "Thèse de Doctorat",
+      discipline: "Économie",
+      abstract: "Analyse des narratifs alternatifs concernant la transition économique des Haïtiens et leur intégration économique.",
+      url: "https://scholarworks.usfca.edu/",
+      keywords: ["Économie haïtienne", "Transition économique", "Narratifs alternatifs", "Intégration économique", "Diaspora haïtienne", "Développement économique"]
+    },
+    {
+      id: 12,
+      title: "Fanm Pa Chita: Mobilities, Intimate Labour, And Political Subjectivities Among Haitian Women on The Move",
+      author: "Masaya Llavaneras Blanco",
+      year: 2020,
+      institution: "Wilfrid Laurier University",
+      type: "Thèse de Doctorat",
+      discipline: "Sciences humaines et sociales",
+      abstract: "Étude des mobilités, du travail intime et des subjectivités politiques des femmes haïtiennes migrantes.",
+      url: "https://scholars.wlu.ca/",
+      keywords: ["Femmes haïtiennes", "Migration", "Travail intime", "Mobilités", "Études de genre", "Subjectivités politiques", "Diaspora"]
+    },
+    {
+      id: 13,
+      title: "Haitian Vodou: 'Pwen' (Magical Charge) in Ritual Context",
+      author: "Kimberly Ann Greenough-Hodges",
+      year: 2020,
+      institution: "University of Texas at Dallas",
+      type: "Thèse de Doctorat",
+      discipline: "Anthropologie",
+      abstract: "Étude anthropologique du Vodou haïtien, en particulier le concept de 'Pwen' (charge magique) dans les contextes rituels.",
+      url: "https://utdallas.edu/",
+      keywords: ["Vodou", "Anthropologie", "Rituels", "Spiritualité haïtienne", "Culture haïtienne", "Magie", "Religion"]
+    },
+    {
+      id: 14,
+      title: "Haiti has more forests than previously reported: land change 2000-2015",
+      author: "Ose Pauleus",
+      year: 2020,
+      institution: "University of Puerto Rico",
+      type: "Recherche Scientifique",
+      discipline: "Environnement",
+      abstract: "Analyse des changements d'utilisation des terres en Haïti révélant une couverture forestière plus importante que préalablement estimée.",
+      url: "https://www.upr.edu/",
+      keywords: ["Forêts", "Déforestation", "Changements d'utilisation des terres", "Environnement haïtien", "Géographie", "Conservation", "Biodiversité"]
+    },
+    {
+      id: 15,
+      title: "Mitan-Morphic: The Study of the Evolution of the Contemporary Haitian Artist in Relation to Historical Trauma",
+      author: "Petrouchka Louise Leslie Moise",
+      year: 2020,
+      institution: "Louisiana State University",
+      type: "Thèse de Doctorat",
+      discipline: "Arts",
+      abstract: "Étude de l'évolution des artistes haïtiens contemporains en relation avec les traumatismes historiques et la résilience culturelle.",
+      url: "https://www.lsu.edu/",
+      keywords: ["Arts haïtiens", "Artistes contemporains", "Trauma historique", "Culture haïtienne", "Résilience", "Expression artistique", "Identité"]
+    },
+    {
+      id: 16,
+      title: "Livelihoods in the Balance: Haitians, Haitian-Dominicans and Precarious Work in the Dominican Republic",
+      author: "Effie Smith",
+      year: 2020,
+      institution: "Penn State University",
+      type: "Mémoire de Master",
+      discipline: "Sociologie",
+      abstract: "Analyse des moyens de subsistance précaires des travailleurs haïtiens et haïtiens-dominicains en République Dominicaine.",
+      url: "https://www.psu.edu/",
+      keywords: ["Travail précaire", "Haïtiens en République Dominicaine", "Moyens de subsistance", "Migration", "Conditions de travail", "Batey", "Sociologie du travail"]
+    },
+    {
+      id: 17,
+      title: "Deconstructing Language Ideologies with Self-Reflective Writing in an ESL Classroom in Haiti",
+      author: "Javid Buchanan",
+      year: 2019,
+      institution: "CUNY City College",
+      type: "Thèse de Doctorat",
+      discipline: "Éducation",
+      abstract: "Analyse critique des idéologies linguistiques dans l'enseignement de l'anglais en Haïti à travers l'écriture réflexive.",
+      url: "https://www.ccny.cuny.edu/",
+      keywords: ["Linguistique", "Idéologies linguistiques", "Enseignement de l'anglais", "Créole haïtien", "Éducation", "Multilinguisme", "Pédagogie critique"]
+    },
+    {
+      id: 18,
+      title: "The Issue of Language in Haitian Education: An inquiry into the factors Hindering Haitian Creole Usage in Primary Schooling",
+      author: "William Vince Dewar",
+      year: 2019,
+      institution: "Florida State University",
+      type: "Mémoire de Master",
+      discipline: "Éducation",
+      abstract: "Enquête sur les obstacles à l'utilisation du créole haïtien dans l'enseignement primaire en Haïti.",
+      url: "https://www.fsu.edu/",
+      keywords: ["Créole haïtien", "Éducation primaire", "Politique linguistique", "Enseignement", "Langue maternelle", "Haïti", "Pédagogie"]
+    },
+    {
+      id: 19,
+      title: "Haiti's Disempowerment: A Consideration towards Social Awareness and Agricultural Development",
+      author: "Veronica Ann Rousseau Hackenbruch",
+      year: 2019,
+      institution: "Harvard University",
+      type: "Mémoire de Master",
+      discipline: "Développement",
+      abstract: "Analyse de l'autonomisation sociale et du développement agricole en Haïti comme stratégies de réduction de la vulnérabilité.",
+      url: "https://www.harvard.edu/",
+      keywords: ["Développement agricole", "Autonomisation", "Conscience sociale", "Haïti", "Développement durable", "Agriculture", "Résilience"]
+    },
+    {
+      id: 20,
+      title: "Fanm ak Pouvwa: Images of Women in Haitian Sovereignty",
+      author: "Eva Heppelmann",
+      year: 2019,
+      institution: "University of California-Los Angeles",
+      type: "Thèse de Doctorat",
+      discipline: "Sciences humaines et sociales",
+      abstract: "Étude des images et représentations des femmes dans la souveraineté haïtienne et la construction identitaire nationale.",
+      url: "https://www.ucla.edu/",
+      keywords: ["Femmes haïtiennes", "Souveraineté", "Identité nationale", "Études de genre", "Représentations", "Empowerment", "Culture haïtienne"]
+    },
+    {
+      id: 21,
+      title: "Agronomic Performance And Genetic Diversity Of Common Bean (Phaseolus Vulgaris) Varieties In Haiti",
+      author: "Riphine Mainviel",
+      year: 2019,
+      institution: "University of Florida",
+      type: "Mémoire de Master",
+      discipline: "Agriculture",
+      abstract: "Étude de la performance agronomique et de la diversité génétique des variétés de haricots communs cultivés en Haïti.",
+      url: "https://www.ufl.edu/",
+      keywords: ["Haricots", "Génétique", "Agriculture haïtienne", "Diversité génétique", "Performance agronomique", "Cultures vivrières", "Biodiversité"]
+    },
+    {
+      id: 22,
+      title: "The Role of Migration-Related Stress in Depression Among Haitian Immigrants in Florida",
+      author: "Chercheur(e) non spécifié(e)",
+      year: 2018,
+      institution: "Université américaine",
+      type: "Recherche Scientifique",
+      discipline: "Santé",
+      abstract: "Étude du rôle du stress lié à la migration dans la dépression chez les immigrants haïtiens en Floride.",
+      url: "https://scholarworks.waldenu.edu/",
+      keywords: ["Santé mentale", "Migration", "Stress", "Dépression", "Immigrants haïtiens", "Psychologie", "Santé publique"]
+    },
+    {
+      id: 23,
+      title: "An In-Depth Analysis Of The Lived Experience Of Agricultural Undergraduate Students in Haiti",
+      author: "Chercheur(e) non spécifié(e)",
+      year: 2018,
+      institution: "Université haïtienne",
+      type: "Recherche Scientifique",
+      discipline: "Éducation",
+      abstract: "Analyse approfondie des expériences vécues par les étudiants de premier cycle en agriculture en Haïti.",
+      url: "https://uniq.edu.ht/",
+      keywords: ["Éducation agricole", "Expériences étudiantes", "Agriculture haïtienne", "Formation professionnelle", "Enseignement supérieur", "Haïti"]
+    },
+    {
+      id: 24,
+      title: "An anthropological investigation of mental health in Haiti: Language measurement, and the socio-spiritual world",
+      author: "Chercheur(e) non spécifié(e)",
+      year: 2017,
+      institution: "Université américaine",
+      type: "Recherche Scientifique",
+      discipline: "Anthropologie",
+      abstract: "Investigation anthropologique de la santé mentale en Haïti intégrant les dimensions linguistiques et spirituelles.",
+      url: "https://www.anthropology.org/",
+      keywords: ["Santé mentale", "Anthropologie", "Spiritualité", "Culture haïtienne", "Langue créole", "Bien-être", "Médecine traditionnelle"]
+    },
+    {
+      id: 25,
+      title: "The Role And Effectiveness Of The Haitian Diaspora In The Development Of Haiti",
+      author: "Chercheur(e) non spécifié(e)",
+      year: 2016,
+      institution: "Université haïtienne",
+      type: "Recherche Scientifique",
+      discipline: "Développement",
+      abstract: "Analyse du rôle et de l'efficacité de la diaspora haïtienne dans le développement économique et social d'Haïti.",
+      url: "https://www.uniq.edu.ht/",
+      keywords: ["Diaspora haïtienne", "Développement", "Remises", "Investissements", "Coopération internationale", "Haïti", "Engagement diasporique"]
+    },
+    {
+      id: 26,
+      title: "Transnational space and sexuality: an Analysis of same-sex Intimate Cross-border Relationships among Men in Haïti",
+      author: "Carlo Handy Charles",
+      year: 2023,
+      institution: "McMaster University (Canada)",
+      type: "Thèse de Doctorat",
+      discipline: "Sciences Sociales",
+      abstract: "Analyse des relations intimes transnationalles entre hommes haïtiens et leurs partenaires migrants à travers la diaspora haïtienne.",
+      url: "https://hal.science/tel-04429694v1",
+      keywords: ["Sexualité", "Diaspora", "Migrations", "Relations transnationalles", "Haïti", "Genre", "Identité"]
+    },
+    {
+      id: 27,
+      title: "Produire l'information sur Haïti en contexte d'insécurité (2019-2024): usages de WhatsApp et reconfiguration du travail journalistique",
+      author: "Danaxon Joachim",
+      year: 2024,
+      institution: "Université de France",
+      type: "Thèse de Doctorat",
+      discipline: "Journalisme",
+      abstract: "Étude sur la production d'information en Haïti dans un contexte d'insécurité, avec focus sur l'utilisation de WhatsApp et la reconfiguration du travail journalistique.",
+      url: "https://hal.science/tel-04919082v1",
+      keywords: ["Journalisme", "Insécurité", "WhatsApp", "Communication", "Haïti", "Médias", "Information"]
+    },
+    {
+      id: 28,
+      title: "Analyse des services éducatifs préscolaires et de la formation du personnel éducateur/enseignant dans le Sud-Est d'Haïti",
+      author: "Magdala Jean Baptiste",
+      year: 2024,
+      institution: "Université d'État d'Haïti",
+      type: "Thèse de Doctorat",
+      discipline: "Éducation",
+      abstract: "Analyse complète des services éducatifs préscolaires et de la formation des enseignants dans la région du Sud-Est d'Haïti.",
+      url: "https://hal.science/tel-04629556v1",
+      keywords: ["Éducation préscolaire", "Formation enseignante", "Sud-Est Haïti", "Pédagogie", "Développement de l'enfant", "Qualité éducative", "Ressources humaines"]
+    },
+    {
+      id: 29,
+      title: "Tectonic evolution, fault architecture, and paleo-fluid circulation in transpressive systems - southern Haiti",
+      author: "Richard Wessels",
+      year: 2018,
+      institution: "Université Sorbonne (France)",
+      type: "Thèse de Doctorat",
+      discipline: "Géologie",
+      abstract: "Étude de l'évolution tectonique, de l'architecture des failles et de la circulation des fluides paléo dans les systèmes transpressifs du sud d'Haïti.",
+      url: "https://hal.science/tel-02484820v2",
+      keywords: ["Tectonique", "Géologie", "Failles", "Fluides géothermiques", "Haïti", "Géodynamique", "Sismologie"]
+    },
+    {
+      id: 30,
+      title: "Économie verte, éradication de l'extrême pauvreté et développement durable en Haïti: Théories et évidences empiriques",
+      author: "Philippe Simon",
+      year: 2020,
+      institution: "Université d'Antioche (France)",
+      type: "Thèse de Doctorat",
+      discipline: "Économie",
+      abstract: "Analyse théorique et empirique de l'économie verte, de l'éradication de la pauvreté extrême et du développement durable en Haïti.",
+      url: "https://hal.science/tel-05005789v1",
+      keywords: ["Économie verte", "Pauvreté", "Développement durable", "Haïti", "Environnement", "Développement économique", "Durabilité"]
+    },
+    {
+      id: 31,
+      title: "My subject is Haïti, the Black Republic: l'expérience haïtienne des militants noirs-américains (1804-1893)",
+      author: "Claire Bourhis-Mariotti",
+      year: 2013,
+      institution: "Université Paris 1 Panthéon-Sorbonne (France)",
       type: "Thèse de Doctorat",
       discipline: "Histoire",
-      abstract: "Étude historique complète de l'évolution de l'éducation en Haïti et ses perspectives futures.",
-      url: "https://example.com/thesis/laennec-hurbon-2021",
-      keywords: ["Histoire", "Éducation", "Haïti", "Évolution"]
+      abstract: "Étude historique de l'expérience haïtienne des militants noirs-américains du 19ème siècle et leur engagement pour la liberté.",
+      url: "https://hal.science/tel-01455099v1",
+      keywords: ["Histoire", "Activisme noir", "États-Unis", "Haïti", "Liberté", "Diaspora", "Relations internationales"]
+    },
+    {
+      id: 32,
+      title: "La maternité adolescente à Haïti: Facteurs sociaux, économiques et culturels",
+      author: "David Jean Simon",
+      year: 2022,
+      institution: "Université Paris 1 Panthéon-Sorbonne (France)",
+      type: "Thèse de Doctorat",
+      discipline: "Santé Publique",
+      abstract: "Analyse des facteurs sociaux, économiques et culturels influençant la maternité adolescente en Haïti.",
+      url: "https://hal.science/tel-03977718v1",
+      keywords: ["Maternité adolescente", "Santé reproductive", "Haïti", "Facteurs sociaux", "Développement", "Genre", "Santé publique"]
+    },
+    {
+      id: 33,
+      title: "Dynamique d'une frontière transformante dans un contexte de collision oblique: étude de la limite nord de la plaque Caraïbe",
+      author: "Jordane Corbeau",
+      year: 2015,
+      institution: "Université Paris Diderot (France)",
+      type: "Thèse de Doctorat",
+      discipline: "Géologie",
+      abstract: "Étude géodynamique de la frontière transformante nord de la plaque Caraïbe et ses implications sismiques pour Haïti.",
+      url: "https://hal.science/tel-01413773v1",
+      keywords: ["Géodynamique", "Plaque Caraïbe", "Sismologie", "Tectonique", "Haïti", "Géologie", "Risques naturels"]
+    },
+    {
+      id: 34,
+      title: "Monographie hydrologique d'Haïti: analyse et prédétermination des pluies et crues fortes",
+      author: "Ralph Bathelemy",
+      year: 2023,
+      institution: "Université Côte d'Azur (France)",
+      type: "Thèse de Doctorat",
+      discipline: "Environnement",
+      abstract: "Monographie complète de l'hydrologie haïtienne avec analyse des pluies et prédiction des crues fortes.",
+      url: "https://hal.science/tel-04361205v2",
+      keywords: ["Hydrologie", "Pluies", "Crues", "Environnement", "Haïti", "Changement climatique", "Risques hydrologiques"]
+    },
+    {
+      id: 35,
+      title: "La décentralisation en Haïti à l'aune de l'expérience décentralisatrice française",
+      author: "Jacques Alain Mondésir",
+      year: 2024,
+      institution: "Université de Lorraine (France)",
+      type: "Thèse de Doctorat",
+      discipline: "Gouvernance",
+      abstract: "Analyse comparative de la décentralisation en Haïti et en France, avec implications pour la gouvernance locale.",
+      url: "https://hal.science/tel-04942873v1",
+      keywords: ["Décentralisation", "Gouvernance", "Politique locale", "Haïti", "France", "Administration publique", "Développement territorial"]
+    },
+    {
+      id: 36,
+      title: "Démocratisation et inégalités scolaires dans les pays en voie de développement. Le cas d'Haïti",
+      author: "Mardochée Pierre",
+      year: 2021,
+      institution: "Université Paris-Sud (France)",
+      type: "Thèse de Doctorat",
+      discipline: "Éducation",
+      abstract: "Étude des relations entre démocratisation et inégalités scolaires en Haïti et dans les pays en développement.",
+      url: "https://hal.science/tel-03537776v1",
+      keywords: ["Inégalités scolaires", "Démocratisation", "Éducation", "Haïti", "Développement", "Accès à l'éducation", "Équité"]
+    },
+    {
+      id: 37,
+      title: "La gestion juridique des risques et des catastrophes naturelles en Haïti: défaillances et solutions",
+      author: "Eland Guerrier",
+      year: 2021,
+      institution: "Université de Franche-Comté (France)",
+      type: "Thèse de Doctorat",
+      discipline: "Droit",
+      abstract: "Analyse juridique de la gestion des risques et catastrophes naturelles en Haïti, identifiant les défaillances et proposant des solutions.",
+      url: "https://hal.science/tel-05242678v1",
+      keywords: ["Droit", "Gestion des catastrophes", "Risques naturels", "Haïti", "Cadre juridique", "Gouvernance", "Prévention"]
+    },
+    {
+      id: 38,
+      title: "Relations entre systèmes tectoniques et sédimentaires à la limite Nord de la plaque Caraïbe",
+      author: "Alana Oliveira de Sa",
+      year: 2023,
+      institution: "Sorbonne Université (France)",
+      type: "Thèse de Doctorat",
+      discipline: "Géosciences",
+      abstract: "Étude des relations entre systèmes tectoniques et sédimentaires à la limite nord de la plaque Caraïbe avec implications pour Haïti.",
+      url: "https://hal.science/tel-04504931v1",
+      keywords: ["Géosciences", "Tectonique", "Sédimentologie", "Plaque Caraïbe", "Haïti", "Géodynamique", "Géologie marine"]
+    },
+    {
+      id: 39,
+      title: "Contribution à la compréhension de l'aléa sismique en Haïti à partir d'une analyse de la sismicité régionale",
+      author: "Sylvert Paul",
+      year: 2024,
+      institution: "Université Côte d'Azur & Université d'État d'Haïti",
+      type: "Thèse de Doctorat",
+      discipline: "Sismologie",
+      abstract: "Analyse complète de la sismicité régionale pour améliorer la compréhension de l'aléa sismique en Haïti.",
+      url: "https://hal.science/tel-04996483v1",
+      keywords: ["Sismologie", "Aléa sismique", "Sismicité", "Haïti", "Tremblements de terre", "Géophysique", "Prévention"]
+    },
+    {
+      id: 40,
+      title: "Haitian Vodou: 'Pwen' (Magical Charge) in Ritual Context",
+      author: "Kimberly Ann Greenough-Hodges",
+      year: 2020,
+      institution: "University of Texas at Dallas (États-Unis)",
+      type: "Thèse de Doctorat",
+      discipline: "Anthropologie",
+      abstract: "Étude anthropologique du Vodou haïtien, particulièrement du concept de 'Pwen' (charge magique) dans les contextes rituels.",
+      url: "https://www.utdallas.edu/",
+      keywords: ["Vodou", "Spiritualité", "Rituel", "Anthropologie", "Haïti", "Culture", "Religion"]
+    },
+    {
+      id: 41,
+      title: "Fanm ak Pouvwa: Images of Women in Haitian Sovereignty",
+      author: "Eva Heppelmann",
+      year: 2019,
+      institution: "University of California-Los Angeles (États-Unis)",
+      type: "Thèse de Doctorat",
+      discipline: "Études Culturelles",
+      abstract: "Analyse des images et représentations des femmes haïtiennes dans le contexte de la souveraineté nationale.",
+      url: "https://www.ucla.edu/",
+      keywords: ["Femmes", "Souveraineté", "Genre", "Haïti", "Culture", "Identité", "Représentation"]
+    },
+    {
+      id: 42,
+      title: "Mitan-Morphic: The Study of the Evolution of the Contemporary Haitian Artist in Relation to Historical Trauma",
+      author: "Petrouchka Louise Leslie Moise",
+      year: 2020,
+      institution: "Louisiana State University (États-Unis)",
+      type: "Thèse de Doctorat",
+      discipline: "Arts",
+      abstract: "Étude de l'évolution de l'artiste haïtien contemporain en relation avec les traumas historiques du pays.",
+      url: "https://www.lsu.edu/",
+      keywords: ["Arts", "Trauma historique", "Artistes haïtiens", "Culture", "Haïti", "Expression artistique", "Identité culturelle"]
+    },
+    {
+      id: 43,
+      title: "Agronomic Performance And Genetic Diversity Of Common Bean (Phaseolus Vulgaris) Varieties In Haiti",
+      author: "Riphine Mainviel",
+      year: 2019,
+      institution: "University of Florida (États-Unis)",
+      type: "Thèse de Doctorat",
+      discipline: "Agriculture",
+      abstract: "Étude de la performance agronomique et de la diversité génétique des variétés de haricots communs en Haïti.",
+      url: "https://www.ufl.edu/",
+      keywords: ["Agriculture", "Génétique", "Haricots", "Diversité génétique", "Haïti", "Cultures vivrières", "Sécurité alimentaire"]
+    },
+    {
+      id: 44,
+      title: "Analysis of Haitian Perceptions Related to Sexual Abuse and Exploitation Perpetrated by UN Peacekeepers during MINUSTAH",
+      author: "Letizia Canciani",
+      year: 2023,
+      institution: "Università degli Studi di Padova (Italie)",
+      type: "Thèse de Doctorat",
+      discipline: "Droits Humains",
+      abstract: "Analyse des perceptions haïtiennes concernant les abus sexuels et l'exploitation par les casques bleus de l'ONU durant MINUSTAH.",
+      url: "https://thesis.unipd.it/",
+      keywords: ["Droits humains", "Abus sexuels", "MINUSTAH", "ONU", "Haïti", "Justice", "Victimes"]
+    },
+    {
+      id: 45,
+      title: "Relations entre Haïtiens et Dominicains dans la région frontalière nord",
+      author: "Catherine Bourgeois",
+      year: 2016,
+      institution: "Université Libre de Bruxelles (Belgique)",
+      type: "Thèse de Doctorat",
+      discipline: "Droit",
+      abstract: "Analyse des relations entre Haïtiens et Dominicains dans la région frontalière nord et implications juridiques et sociales.",
+      url: "https://cv.hal.science/catherine-bourgeois",
+      keywords: ["Droit", "Frontière", "Relations internationales", "Haïti", "République Dominicaine", "Gouvernance", "Coopération régionale"]
+    },
+    {
+      id: 46,
+      title: "La question des services sociaux dans le processus d'urbanisation accéléré de la Commune de Ouanaminthe",
+      author: "Simbert ARISTIDE",
+      year: 2014,
+      institution: "Université d'État d'Haïti",
+      type: "Mémoire de Licence",
+      discipline: "Service Social",
+      abstract: "Analyse des services sociaux dans le contexte d'urbanisation accélérée de la commune de Ouanaminthe.",
+      url: "https://classiques.uqam.ca/contemporains/etudes_haitiennes/",
+      keywords: ["Services sociaux", "Urbanisation", "Ouanaminthe", "Développement urbain", "Haïti", "Politique sociale"]
+    },
+    {
+      id: 47,
+      title: "Droit au logement et personnes déplacées - Camp d'hébergement de Delmas 33 après le séisme de 2010",
+      author: "Kensy BIEN-AIMÉ",
+      year: 2016,
+      institution: "Université d'État d'Haïti",
+      type: "Mémoire de Licence",
+      discipline: "Travail Social",
+      abstract: "Analyse du cadre de vie et des droits sociaux des personnes déplacées vivant dans le camp d'hébergement de Delmas 33 après le séisme du 12 janvier 2010.",
+      url: "https://classiques.uqam.ca/contemporains/etudes_haitiennes/",
+      keywords: ["Logement", "Personnes déplacées", "Séisme 2010", "Droits sociaux", "Haïti", "Camps d'hébergement"]
+    },
+    {
+      id: 48,
+      title: "Impacts des activités agricoles sur l'écosystème du Parc National La Visite en Haïti",
+      author: "Christin CALIXTE",
+      year: 2015,
+      institution: "Université Senghor (Alexandrie, Égypte)",
+      type: "Mémoire de Master",
+      discipline: "Environnement",
+      abstract: "Analyse des impacts des activités agricoles sur l'écosystème du Parc National La Visite, particulièrement la forêt feuillue de Bérac.",
+      url: "https://classiques.uqam.ca/contemporains/etudes_haitiennes/",
+      keywords: ["Agriculture", "Écosystème", "Parc National La Visite", "Forêt", "Biodiversité", "Environnement", "Haïti"]
+    },
+    {
+      id: 49,
+      title: "Représentations sociales des hommes par rapport aux femmes dans les proverbes créoles haïtiens",
+      author: "Muselène CARILUS",
+      year: 2017,
+      institution: "Université Senghor",
+      type: "Mémoire de Master",
+      discipline: "Anthropologie",
+      abstract: "Analyse des représentations sociales des hommes par rapport aux femmes dans les proverbes créoles haïtiens.",
+      url: "https://classiques.uqam.ca/contemporains/etudes_haitiennes/",
+      keywords: ["Genre", "Proverbes créoles", "Représentations sociales", "Culture haïtienne", "Communication", "Haïti"]
+    },
+    {
+      id: 50,
+      title: "Potentialités touristiques et développement socio-économique de la commune de Cayes-Jacmel",
+      author: "Jean-Ony CÉLESTIN",
+      year: 2016,
+      institution: "CLACSO (Haïti)",
+      type: "Mémoire de Master",
+      discipline: "Tourisme",
+      abstract: "Analyse des potentialités touristiques et des perspectives de développement socio-économique de la commune de Cayes-Jacmel.",
+      url: "https://classiques.uqam.ca/contemporains/etudes_haitiennes/",
+      keywords: ["Tourisme", "Développement économique", "Cayes-Jacmel", "Potentialités touristiques", "Haïti", "Développement local"]
+    },
+    {
+      id: 51,
+      title: "Exploration de la vulnérabilité de la paysannerie haïtienne dans le contexte du changement climatique",
+      author: "Thony CHÉRILUS",
+      year: 2015,
+      institution: "Université d'État d'Haïti",
+      type: "Mémoire",
+      discipline: "Environnement",
+      abstract: "Exploration de la vulnérabilité de la paysannerie haïtienne dans le contexte du changement climatique et de l'adaptation.",
+      url: "https://classiques.uqam.ca/contemporains/etudes_haitiennes/",
+      keywords: ["Changement climatique", "Paysannerie", "Vulnérabilité", "Agriculture", "Adaptation", "Haïti"]
+    },
+    {
+      id: 52,
+      title: "L'application du système interaméricain de protection des droits de l'homme par la République d'Haïti",
+      author: "Esther CRIBE",
+      year: 2016,
+      institution: "Université d'État d'Haïti",
+      type: "Mémoire",
+      discipline: "Droit",
+      abstract: "Analyse de l'application du système interaméricain de protection des droits de l'homme par la République d'Haïti.",
+      url: "https://classiques.uqam.ca/contemporains/etudes_haitiennes/",
+      keywords: ["Droits humains", "Système interaméricain", "Droit international", "Haïti", "Gouvernance", "Justice"]
+    },
+    {
+      id: 53,
+      title: "Stratégies de communication de vente des agents de marketing dans les autobus de transport en commun en Haïti",
+      author: "Kendson DANJOU",
+      year: 2015,
+      institution: "Université d'État d'Haïti",
+      type: "Mémoire",
+      discipline: "Communication",
+      abstract: "Analyse des stratégies de communication de vente utilisées par les agents de marketing dans les autobus de transport en commun en Haïti.",
+      url: "https://classiques.uqam.ca/contemporains/etudes_haitiennes/",
+      keywords: ["Communication commerciale", "Marketing", "Transport", "Stratégies de vente", "Haïti"]
+    },
+    {
+      id: 54,
+      title: "Communication participative, protection des ressources patrimoniales et développement local",
+      author: "Ricarson DORCÉ",
+      year: 2014,
+      institution: "Université d'État d'Haïti",
+      type: "Mémoire",
+      discipline: "Communication",
+      abstract: "Analyse de la communication participative comme outil de protection des ressources patrimoniales et de développement local en Haïti.",
+      url: "https://classiques.uqam.ca/contemporains/etudes_haitiennes/",
+      keywords: ["Communication participative", "Patrimoine", "Développement local", "Ressources culturelles", "Haïti"]
+    },
+    {
+      id: 55,
+      title: "La psychologie de l'enfant en domesticité",
+      author: "Ricarson DORCÉ",
+      year: 2014,
+      institution: "Université d'État d'Haïti",
+      type: "Mémoire",
+      discipline: "Psychologie",
+      abstract: "Analyse psychologique des enfants en situation de domesticité en Haïti et impacts sur leur développement personnel.",
+      url: "https://classiques.uqam.ca/contemporains/etudes_haitiennes/",
+      keywords: ["Enfants en domesticité", "Psychologie", "Protection de l'enfance", "Développement personnel", "Haïti"]
+    },
+    {
+      id: 56,
+      title: "Analyse ethnologique des rites et rituels dans les élections présidentielles de 2010-2011 à Port-au-Prince",
+      author: "James ENGE",
+      year: 2013,
+      institution: "Université d'État d'Haïti",
+      type: "Mémoire",
+      discipline: "Anthropologie",
+      abstract: "Analyse ethnologique des rites et rituels observés dans les élections présidentielles de 2010-2011 à Port-au-Prince.",
+      url: "https://classiques.uqam.ca/contemporains/etudes_haitiennes/",
+      keywords: ["Élections", "Rituels", "Anthropologie", "Politique", "Port-au-Prince", "Haïti"]
+    },
+    {
+      id: 57,
+      title: "Les préférences commerciales unilatérales des États-Unis au profit d'Haïti",
+      author: "Woodkend EUGENE",
+      year: 2014,
+      institution: "Université d'État d'Haïti",
+      type: "Mémoire",
+      discipline: "Économie",
+      abstract: "Analyse des préférences commerciales unilatérales accordées par les États-Unis au profit d'Haïti et leurs impacts économiques.",
+      url: "https://classiques.uqam.ca/contemporains/etudes_haitiennes/",
+      keywords: ["Commerce international", "États-Unis", "Haïti", "Préférences commerciales", "Économie"]
+    },
+    {
+      id: 58,
+      title: "Les repatriements massifs d'Haïtiens de 1991 à 2011 - Responsabilité internationale et droit interaméricain",
+      author: "Johnson JEAN-BAPTISTE",
+      year: 2014,
+      institution: "Université d'État d'Haïti",
+      type: "Mémoire de Licence",
+      discipline: "Droit",
+      abstract: "Analyse des repatriements massifs d'Haïtiens de 1991 à 2011 et responsabilité internationale des États dominicain et haïtien au regard du droit interaméricain.",
+      url: "https://classiques.uqam.ca/contemporains/etudes_haitiennes/",
+      keywords: ["Repatriements", "Migrations", "Droit international", "Droits humains", "Haïti", "République Dominicaine"]
+    },
+    {
+      id: 59,
+      title: "Représentation de soi chez les jeunes en domesticité dès la troisième enfance",
+      author: "Samuel JEAN-BAPTISTE",
+      year: 2014,
+      institution: "Université d'État d'Haïti",
+      type: "Mémoire",
+      discipline: "Psychologie",
+      abstract: "Analyse de la représentation de soi chez les jeunes âgés de 14 à 17 ans en situation de domesticité dès la troisième enfance.",
+      url: "https://classiques.uqam.ca/contemporains/etudes_haitiennes/",
+      keywords: ["Enfants en domesticité", "Identité", "Psychologie", "Jeunesse", "Haïti", "Protection de l'enfance"]
+    },
+    {
+      id: 60,
+      title: "Migrations estudiantines et expériences du logement à Port-au-Prince",
+      author: "Williamson LAFORTUNE",
+      year: 2015,
+      institution: "Université d'État d'Haïti",
+      type: "Mémoire",
+      discipline: "Sociologie",
+      abstract: "Analyse des migrations estudiantines et des expériences du logement des étudiants migrants à Port-au-Prince.",
+      url: "https://classiques.uqam.ca/contemporains/etudes_haitiennes/",
+      keywords: ["Migrations", "Étudiants", "Logement", "Port-au-Prince", "Urbanisme", "Haïti"]
     }
   ];
 
@@ -579,7 +1322,7 @@ export default function ResearchPortal() {
     { label: "Institutions de Recherche", value: "20+" },
     { label: "Revues Scientifiques", value: "15+" },
     { label: "Laboratoires", value: "14" },
-    { label: "Mémoires et Thèses", value: "8+" }
+    { label: "Mémoires et Thèses", value: "60+" }
   ];
 
   const filteredInstitutions = institutions.filter(inst =>
@@ -595,15 +1338,41 @@ export default function ResearchPortal() {
 
   const uniqueDisciplines = Array.from(new Set(thesesAndDissertations.map(t => t.discipline))).sort();
   const uniqueYears = Array.from(new Set(thesesAndDissertations.map(t => t.year))).sort((a, b) => b - a);
+  const uniqueInstitutions = Array.from(new Set(thesesAndDissertations.map(t => t.institution))).sort();
+  const uniqueTypes = Array.from(new Set(thesesAndDissertations.map(t => t.type))).sort();
+  const allKeywords = Array.from(new Set(thesesAndDissertations.flatMap(t => t.keywords))).sort();
+  const minYear = Math.min(...thesesAndDissertations.map(t => t.year));
+  const maxYear = Math.max(...thesesAndDissertations.map(t => t.year));
 
-  const filteredTheses = thesesAndDissertations.filter(thesis =>
-    (thesis.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    thesis.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    thesis.discipline.toLowerCase().includes(searchQuery.toLowerCase())) &&
-    (!selectedDiscipline || thesis.discipline === selectedDiscipline) &&
-    (!selectedYear || thesis.year === selectedYear) &&
-    (!selectedType || thesis.type === selectedType)
-  );
+  // Advanced filtering for theses and dissertations
+  const getFilteredTheses = () => {
+    return thesesAndDissertations.filter(thesis => {
+      const matchesSearch = !searchQuery || 
+        thesis.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        thesis.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        thesis.abstract.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      const matchesDiscipline = !selectedDiscipline || thesis.discipline === selectedDiscipline;
+      const matchesType = !selectedType || thesis.type === selectedType;
+      const matchesInstitution = !selectedInstitution || thesis.institution === selectedInstitution;
+      
+      const matchesYear = !selectedYear || thesis.year === selectedYear;
+      const matchesYearRange = !(yearRange.start || yearRange.end) || 
+        ((!yearRange.start || thesis.year >= yearRange.start) && 
+         (!yearRange.end || thesis.year <= yearRange.end));
+      
+      const matchesKeywords = selectedKeywords.size === 0 || 
+        Array.from(selectedKeywords).some(keyword => 
+          thesis.keywords.some(k => k.toLowerCase().includes(keyword.toLowerCase())));
+      
+      return matchesSearch && matchesDiscipline && matchesType && matchesInstitution && 
+             (matchesYear || matchesYearRange) && matchesKeywords;
+    });
+  };
+
+  const filteredTheses = getFilteredTheses();
+
+
 
   const sortedTheses = [...filteredTheses].sort((a, b) => {
     if (sortBy === "year-desc") {
@@ -618,7 +1387,7 @@ export default function ResearchPortal() {
     return 0;
   });
 
-  const uniqueTypes = Array.from(new Set(thesesAndDissertations.map(t => t.type))).sort();
+
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -686,7 +1455,7 @@ export default function ResearchPortal() {
       {/* Main Content */}
       <section className="container mx-auto px-4 py-12">
         <Tabs defaultValue="institutions" className="w-full">
-          <TabsList className="grid w-full grid-cols-7 mb-8">
+          <TabsList className="grid w-full grid-cols-6 mb-8">
             <TabsTrigger value="institutions" className="flex items-center gap-2">
               <Microscope className="w-4 h-4" />
               <span className="hidden sm:inline">Institutions</span>
@@ -699,9 +1468,9 @@ export default function ResearchPortal() {
               <Newspaper className="w-4 h-4" />
               <span className="hidden sm:inline">Revues</span>
             </TabsTrigger>
-            <TabsTrigger value="repositories" className="flex items-center gap-2">
-              <FileText className="w-4 h-4" />
-              <span className="hidden sm:inline">Dépôts</span>
+            <TabsTrigger value="theses" className="flex items-center gap-2">
+              <BookOpen className="w-4 h-4" />
+              <span className="hidden sm:inline">Mémoires</span>
             </TabsTrigger>
             <TabsTrigger value="resources" className="flex items-center gap-2">
               <Users className="w-4 h-4" />
@@ -710,10 +1479,6 @@ export default function ResearchPortal() {
             <TabsTrigger value="press" className="flex items-center gap-2">
               <Newspaper className="w-4 h-4" />
               <span className="hidden sm:inline">Presse</span>
-            </TabsTrigger>
-            <TabsTrigger value="theses" className="flex items-center gap-2">
-              <BookOpen className="w-4 h-4" />
-              <span className="hidden sm:inline">Mémoires</span>
             </TabsTrigger>
           </TabsList>
 
@@ -834,34 +1599,6 @@ export default function ResearchPortal() {
             </div>
           </TabsContent>
 
-          {/* Repositories Tab */}
-          <TabsContent value="repositories" className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {repositories.map((repo, index) => (
-                <Card key={index} className="hover:shadow-lg transition-all duration-300">
-                  <CardHeader>
-                    <div className="flex items-start gap-4">
-                      <div className="text-4xl">{repo.icon}</div>
-                      <div className="flex-1">
-                        <CardTitle className="text-lg">{repo.name}</CardTitle>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground mb-4">{repo.description}</p>
-                    <p className="text-xs text-accent font-semibold mb-4">Catégories : {repo.categories}</p>
-                    <Button 
-                      className="w-full bg-accent hover:bg-accent/90"
-                      onClick={() => window.open(repo.url, '_blank')}
-                    >
-                      Accéder
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-
           {/* Resources Tab */}
           <TabsContent value="resources" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -908,6 +1645,36 @@ export default function ResearchPortal() {
                     Consultez les données et tendances de la recherche en Haïti
                   </p>
                   <Button className="w-full bg-accent hover:bg-accent/90">Voir les statistiques</Button>
+                </CardContent>
+              </Card>
+
+              <Card className="md:col-span-2">
+                <CardHeader>
+                  <CardTitle>Dépôts Documentaires</CardTitle>
+                  <CardDescription>Accédez aux ressources documentaires et dépôts institutionnels</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {repositories.map((repo, index) => (
+                      <div key={index} className="p-4 border border-border rounded-lg hover:border-accent transition">
+                        <div className="flex items-start gap-3 mb-3">
+                          <div className="text-3xl">{repo.icon}</div>
+                          <div className="flex-1">
+                            <h4 className="font-semibold text-foreground">{repo.name}</h4>
+                            <p className="text-xs text-muted-foreground mt-1">{repo.description}</p>
+                          </div>
+                        </div>
+                        <p className="text-xs text-accent font-semibold mb-3">Catégories : {repo.categories}</p>
+                        <Button 
+                          size="sm"
+                          className="w-full bg-accent hover:bg-accent/90"
+                          onClick={() => window.open(repo.url, '_blank')}
+                        >
+                          Accéder
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
                 </CardContent>
               </Card>
             </div>
@@ -1040,7 +1807,7 @@ export default function ResearchPortal() {
                 className="w-full"
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div>
                   <label className="text-sm font-semibold text-foreground mb-2 block">Filtrer par type</label>
                   <select
@@ -1072,6 +1839,21 @@ export default function ResearchPortal() {
                   </select>
                 </div>
                 <div>
+                  <label className="text-sm font-semibold text-foreground mb-2 block">Filtrer par institution</label>
+                  <select
+                    value={selectedInstitution || ""}
+                    onChange={(e) => setSelectedInstitution(e.target.value || null)}
+                    className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground"
+                  >
+                    <option value="">Toutes les institutions</option>
+                    {uniqueInstitutions.map((institution) => (
+                      <option key={institution} value={institution}>
+                        {institution}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
                   <label className="text-sm font-semibold text-foreground mb-2 block">Filtrer par année</label>
                   <select
                     value={selectedYear || ""}
@@ -1086,6 +1868,68 @@ export default function ResearchPortal() {
                     ))}
                   </select>
                 </div>
+                <div className="md:col-span-4">
+                  <label className="text-sm font-semibold text-foreground mb-2 block">Plage d'années</label>
+                  <div className="flex gap-2">
+                    <input
+                      type="number"
+                      placeholder="De"
+                      min={minYear}
+                      max={maxYear}
+                      value={yearRange.start || ""}
+                      onChange={(e) => setYearRange({ ...yearRange, start: e.target.value ? parseInt(e.target.value) : null })}
+                      className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground"
+                    />
+                    <input
+                      type="number"
+                      placeholder="À"
+                      min={minYear}
+                      max={maxYear}
+                      value={yearRange.end || ""}
+                      onChange={(e) => setYearRange({ ...yearRange, end: e.target.value ? parseInt(e.target.value) : null })}
+                      className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <label className="text-sm font-semibold text-foreground mb-2 block">Filtrer par mots-clés</label>
+                <div className="flex gap-2 mb-2">
+                  <input
+                    type="text"
+                    placeholder="Ajouter un mot-clé..."
+                    value={keywordInput}
+                    onChange={(e) => setKeywordInput(e.target.value)}
+                    onKeyPress={(e) => {
+                      if (e.key === "Enter" && keywordInput.trim()) {
+                        handleAddKeyword();
+                      }
+                    }}
+                    className="flex-1 px-3 py-2 border border-border rounded-md bg-background text-foreground"
+                  />
+                  <Button
+                    onClick={handleAddKeyword}
+                    className="bg-accent hover:bg-accent/90"
+                    size="sm"
+                  >
+                    Ajouter
+                  </Button>
+                </div>
+                {selectedKeywords.size > 0 && (
+                  <div className="flex flex-wrap gap-2">
+                    {Array.from(selectedKeywords).map((keyword) => (
+                      <span key={keyword} className="bg-primary/20 text-primary px-3 py-1 rounded-full text-sm flex items-center gap-2">
+                        {keyword}
+                        <button
+                          onClick={() => handleRemoveTag(keyword)}
+                          className="ml-1 hover:text-primary/70"
+                        >
+                          ×
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
             <div className="flex items-center justify-between mb-4">

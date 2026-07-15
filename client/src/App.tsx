@@ -13,6 +13,13 @@ import Events from "./pages/Events";
 import EchoPods from "./pages/EchoPods";
 import InstitutionDetail from "./pages/InstitutionDetail";
 import ThesisDetail from "./pages/ThesisDetail";
+import Collections from "@/pages/Collections";
+import Blog from "@/pages/Blog";
+import ThesisDetailPage from "@/pages/ThesisDetailPage";
+import Resources from "@/pages/Resources";
+import TermsOfService from "@/pages/TermsOfService";
+import Privacy from "@/pages/Privacy";
+import Trends from "@/pages/Trends";
 
 
 function Router() {
@@ -27,7 +34,13 @@ function Router() {
       <Route path={"/echopods"} component={EchoPods} />
       <Route path={"/institution/:id"} component={InstitutionDetail} />
       <Route path={"/thesis/:id"} component={ThesisDetail} />
-      <Route path={"/404"} component={NotFound} />
+        <Route path="/collections" component={Collections} />
+      <Route path="/blog" component={Blog} />
+      <Route path="/resources" component={Resources} />
+      <Route path="/thesis-detail/:id" component={ThesisDetailPage} />
+      <Route path="/trends" component={Trends} />
+      <Route path="/terms" component={TermsOfService} />
+      <Route path="/privacy" component={Privacy} />
       {/* Final fallback route */}
       <Route component={NotFound} />
     </Switch>
